@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-abc
+
 import { retrieveItemDetails } from './api'; // Import the API function for retrieving item details
 
 function RetrieveItemDetails() {
