@@ -3,8 +3,8 @@ const mysql = require('mysql2/promise'); // Import the mysql2 library
 // Create a pool for managing database connections
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'nitheesh',
-  password: 'Ammadaddy@03',
+  user: '',
+  password: '',
   database: 'tradeeasytable',
   waitForConnections: true,
   connectionLimit: 10,
