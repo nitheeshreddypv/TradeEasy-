@@ -1,4 +1,4 @@
-# TradeEasy-
+# TradeEasy- web application still in progress...
 web application for making our items public to all people across the globe digitally and simply without involvement of third parties whether they are used or un-used.
 currently application is in development stage.
 configured to run both the frontend and backend in the localhost.
