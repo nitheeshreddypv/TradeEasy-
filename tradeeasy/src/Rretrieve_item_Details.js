@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
+import { Reet } from './api';
 
-import { retrieveItemDetails } from './api'; // Import the API function for retrieving item details
-
-function RetrieveItemDetails() {
+function Ret() {
   const [itemKey, setItemKey] = useState('');
   const [itemDetails, setItemDetails] = useState(null);
   const [retrievalStatus, setRetrievalStatus] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (itemKey) {
       try {
-        const response = await retrieveItemDetails(itemKey); // Make an API call to retrieve item details
+        const response = await Reet(itemKey);
 
         if (response.ok) {
           setItemDetails(response.data);
-          
-          // Store retrieved item details in state
           setRetrievalStatus('success');
         } else {
+          setItemDetails(null); // Clear item details if there was an error
           setRetrievalStatus('error');
           console.error('Error retrieving item details:', response.error);
         }
       } catch (error) {
+        setItemDetails(null); // Clear item details on network error
         setRetrievalStatus('error');
         console.error('Network error. Please try again later.', error);
       }
@@ -43,9 +42,10 @@ function RetrieveItemDetails() {
         />
         <button type="submit">Retrieve Item</button>
       </form>
-      
-      {retrievalStatus === 'error' && itemDetails && (
-        <div className="error-message">
+
+      {(retrievalStatus === 'success' || retrievalStatus === 'error') && itemDetails && (
+        <div className={retrievalStatus === 'success' ? 'success' : 'error'}>
+          {/* Display item details if itemDetails is available */}
           <h2>Item Details</h2>
           <p>Category: {itemDetails.category}</p>
           <p>Photo: {itemDetails.photo}</p>
@@ -59,13 +59,11 @@ function RetrieveItemDetails() {
         </div>
       )}
 
-      {retrievalStatus === 'error' && (
+      {retrievalStatus === 'error' && !itemDetails && (
         <p className="error-message">Error retrieving item details. Please try again.</p>
-        
-       
       )}
     </div>
   );
 }
 
-export default RetrieveItemDetails;
+export default Ret;

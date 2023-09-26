@@ -30,6 +30,7 @@ router.get('/retrieveItem', async (req, res) => {
 
     // Get a connection from the pool
     const connection = await pool.getConnection();
+    console.log('abc');
 
     // Execute the SELECT query
     const [rows] = await connection.query('SELECT * FROM ITEMS WHERE item_key = ?', [item_key]);

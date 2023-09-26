@@ -45,17 +45,26 @@ export const deleteItem = async (item_key) => {
 };
 
 
-export const retrieveItemDetails = async (itemKey) => {
+export const Reet = async (itemKey, method = 'GET', data = null) => {
   try {
-    const response = await fetch(`${apiUrl}/retrieveItem/${itemKey}`);
+    const requestOptions = {
+      method: 'GET', // Specify the HTTP method, default to GET
+      headers: {
+        'Content-Type': 'application/json',
+      },
+       // Stringify the data if provided
+    };
+
+    const response = await fetch(`${apiUrl}/retrieveItem/${itemKey}`, requestOptions);
 
     if (response.ok) {
-      const data = await response.json();
-      return { ok: true, data };
+      const responseData = await response.json();
+      return { ok: true, data: responseData };
     } else {
-      // Handle error
-      console.error('Error retrieving item details');
-      return { ok: false, error: 'Error retrieving item details' };
+      const errorData = await response.json(); // Parse the error response if available
+      const errorMessage = errorData.message || 'Error retrieving item details';
+      console.error(errorMessage);
+      return { ok: false, error: errorMessage };
     }
   } catch (error) {
     console.error('Error:', error);
