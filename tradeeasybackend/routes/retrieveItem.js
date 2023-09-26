@@ -4,8 +4,8 @@ const router = express.Router();
 const mysql = require('mysql2/promise'); // Import the mysql2 library
 const pool = mysql.createPool({
     host: 'localhost', // Replace with your database host if it's not on localhost
-    user: 'nitheesh', // Replace with your database username
-    password: 'Ammadaddy@03', // Replace with your database password
+    user: '', // Replace with your database username
+    password: '', // Replace with your database password
     database: 'tradeeasytable', // Replace with your database name
     waitForConnections: true,
     connectionLimit: 10,
