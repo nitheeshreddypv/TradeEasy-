@@ -1,0 +1,6 @@
+1.the app will be working on the local host as of now.
+2.the starting page is just a welcome page
+3.to add a item to your database in the backend go to http://localhost:3000/add-item
+4.to delete a item in the backend table go to http://localhost:3000/delete-item
+5.to checkout the all items in each category go to http://localhost:3000/categories and click the required category.
+updates will be given on the app working flow periodically .....
