@@ -1,14 +1,13 @@
-// backend/routes/deleteItem.js
+// backend/routes/categoryItems.js
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2/promise'); // Import the mysql2 library
 
-// DELETE request to delete an item by key
-router.delete('/deleteItem', async (req, res) => {
+// GET request to fetch records by category
+router.get('/items/category/:category', async (req, res) => {
   try {
-    const { item_key } = req.body; 
-    console.log('Received item_key:', item_key);
-    // Get the key from the request body
+    const category = req.params.category;
+    console.log('wait');
 
     // Create a MySQL connection pool
     const pool = mysql.createPool({
@@ -23,21 +22,17 @@ router.delete('/deleteItem', async (req, res) => {
 
     // Get a connection from the pool
     const connection = await pool.getConnection();
-    console.log('Received delete request');
 
-    // Execute the DELETE query
-    const [result] = await connection.query('DELETE FROM ITEMS WHERE item_key = ?', [item_key]);
+    // Execute a SELECT query to fetch records by category
+    const [results] = await connection.query('SELECT * FROM ITEMS WHERE category = ?', [category]);
 
     // Release the connection back to the pool
     connection.release();
 
-    if (result.affectedRows > 0) {
-      res.status(200).json({ message: 'Item deleted successfully' });
-    } else {
-      res.status(404).json({ message: 'Item not found' });
-    }
+    // Respond with the fetched records
+    res.status(200).json(results);
   } catch (error) {
-    console.error('Error deleting item:', error);
+    console.error('Error fetching records by category:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });

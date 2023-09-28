@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
-  host: '', // Replace with your database host if it's not on localhost
-  user: '', // Replace with your database username
-  password: '', // Replace with your database password
-  database: '', // Replace with your database name
+  host: 'localhost', // Replace with your database host if it's not on localhost
+  user: 'nitheesh', // Replace with your database username
+  password: '123456', // Replace with your database password
+  database: 'tradeeasytable', // Replace with your database name
   port: 3306, // Replace with your database port if different
 });
 

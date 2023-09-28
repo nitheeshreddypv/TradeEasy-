@@ -3,8 +3,8 @@ const mysql = require('mysql2/promise'); // Import the mysql2 library
 // Create a pool for managing database connections
 const pool = mysql.createPool({
   host: 'localhost',
-  user: '',
-  password: '',
+  user: 'nitheesh',
+  password: '123456',
   database: 'tradeeasytable',
   waitForConnections: true,
   connectionLimit: 10,
@@ -38,21 +38,6 @@ async function addItem(category, photo, cost, location, name, mobile, email, not
   }
 }
 
-// Function to retrieve an item by key
-async function retrieveItem(item_key) {
-  try {
-    const sql = 'SELECT * FROM ITEMS WHERE item_key = ?';
-    console.log('Received retrieve request');
-    const [rows] = await pool.execute(sql, [item_key]);
-    if (rows.length === 0) {
-      return null;
-    }
-    return rows[0];
-  } catch (error) {
-    throw error;
-  }
-}
-
 // Function to delete an item by key
 async function deleteItem(item_key) {
   try {
@@ -68,8 +53,19 @@ async function deleteItem(item_key) {
   }
 }
 
+// Function to retrieve items by category
+async function getItemsByCategory(category) {
+  try {
+    const sql = 'SELECT * FROM ITEMS WHERE category = ?';
+    const [results] = await pool.execute(sql, [category]);
+    return results;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   addItem,
-  retrieveItem,
   deleteItem,
+  getItemsByCategory, // Add the new function here
 };

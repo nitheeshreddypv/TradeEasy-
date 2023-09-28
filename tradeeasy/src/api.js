@@ -44,30 +44,21 @@ export const deleteItem = async (item_key) => {
   }
 };
 
-
-export const Reet = async (itemKey, method = 'GET', data = null) => {
+export const getItemsByCategory = async (category) => {
   try {
-    const requestOptions = {
-      method: 'GET', // Specify the HTTP method, default to GET
-      headers: {
-        'Content-Type': 'application/json',
-      },
-       // Stringify the data if provided
-    };
-
-    const response = await fetch(`${apiUrl}/retrieveItem/${itemKey}`, requestOptions);
+    const response = await fetch(`${apiUrl}/items/category/${category}`);
 
     if (response.ok) {
-      const responseData = await response.json();
-      return { ok: true, data: responseData };
+      const data = await response.json();
+      // Handle the fetched data here (e.g., update state with category-specific items)
+      return data;
     } else {
-      const errorData = await response.json(); // Parse the error response if available
-      const errorMessage = errorData.message || 'Error retrieving item details';
-      console.error(errorMessage);
-      return { ok: false, error: errorMessage };
+      // Handle error
+      console.error(`Error fetching ${category} items`);
+      return [];
     }
   } catch (error) {
     console.error('Error:', error);
-    return { ok: false, error: 'Network error. Please try again later.' };
+    return [];
   }
 };
