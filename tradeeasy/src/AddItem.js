@@ -5,7 +5,6 @@ function AddItem() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     category: '',
-    photo: '',
     cost: '',
     location: '',
     name: '',
@@ -31,15 +30,13 @@ function AddItem() {
 
       if (response.ok) {
         const responseData = response.data;
-        
         // Item added successfully
         setSubmissionStatus('success');
         setItemKey(responseData.itemKey);
-        
+
         // Clear form fields by resetting formData to its initial state
         setFormData({
           category: '',
-          photo: '',
           cost: '',
           location: '',
           name: '',
@@ -74,7 +71,7 @@ function AddItem() {
           )}
           {submissionStatus === 'error' && (
             <p className="error-message">
-              check your mail for a unique key and store it for future reference.
+              Check your email for a unique key and store it for future reference.
             </p>
           )}
           <form onSubmit={handleSubmit}>
@@ -85,15 +82,6 @@ function AddItem() {
                 type="text"
                 name="category"
                 value={formData.category}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label>Photo URL:</label>
-              <input
-                type="text"
-                name="photo"
-                value={formData.photo}
                 onChange={handleChange}
               />
             </div>

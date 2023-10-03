@@ -62,3 +62,46 @@ export const getItemsByCategory = async (category) => {
     return [];
   }
 };
+
+export const uploadPhoto = async (key, file) => {
+  try {
+      console.log('sdfgh');
+    const formData = new FormData();
+    formData.append('key', key); // Include the key in the form data
+    formData.append('photo', file);
+
+    const response = await fetch(`${apiUrl}/uploadPhoto`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (response.ok) {
+      // Handle success
+      console.log('Photo uploaded successfully');
+    } else {
+      // Handle error
+      console.error('Error uploading photo');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+export const getImages = async (itemKey) => {
+  try {
+    const response = await fetch(`${apiUrl}/getImages/${itemKey}`);
+
+    if (response.ok) {
+      const data = await response.json();
+      // Handle the fetched data here (e.g., update state with item-specific images)
+      return data;
+    } else {
+      // Handle error
+      console.error(`Error fetching images for ${itemKey}`);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return [];
+  }
+};
+

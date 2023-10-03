@@ -26,17 +26,18 @@ function generateKey() {
 }
 
 // Function to add an item to the database
-async function addItem(category, photo, cost, location, name, mobile, email, note) {
+async function addItem(category, cost, location, name, mobile, email, note) {
   try {
     const item_key = generateKey(); // Generate a new key
-    const sql = 'INSERT INTO ITEMS (category, photo, cost, location, name, mobile, email, note, item_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const values = [category, photo, cost, location, name, mobile, email, note, item_key];
+    const sql = 'INSERT INTO ITEMS (category, cost, location, name, mobile, email, note, item_key) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const values = [category, cost, location, name, mobile, email, note, item_key];
     const [results] = await pool.execute(sql, values);
     return { itemKey: item_key, insertId: results.insertId };
   } catch (error) {
     throw error;
   }
 }
+
 
 // Function to delete an item by key
 async function deleteItem(item_key) {
